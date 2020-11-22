@@ -4,17 +4,18 @@ from customer import Customer
 
 atm = Customer(id)
 
-percobaan = 1
-while percobaan < 3:
-    id = int(input('masukan nomor pin anda: '))
-    
-    if id == atm.cekPin():
-        break
-    elif percobaan == 3:
-        print('error')
-        exit()
-    else:
-        percobaan +=1
+while True:
+    id = int(input("Masukkan pin anda: "))
+    trial = 0
+
+    while (id != int(atm.cekPin()) and trial < 3):
+        id = int(input("Pin anda salah. Silakan Masukkan lagi: "))
+        trial += 1
+
+        if trial == 3:
+            print("Error. Silakan ambil kartu dan coba lagi..")
+            exit()  
+    break
 
 while True:
     print('Selamat Datang :D')
@@ -32,7 +33,7 @@ while True:
         else:
             break
         
-        if nominal < atm.cekSaldo():
+        if nominal <= atm.cekSaldo():
             atm.withdrawBalance(nominal)
             print("Transaksi debet berhasil!")
             print("Saldo sisa sekarang: Rp. " + str(round(atm.cekSaldo())) + "")
